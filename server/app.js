@@ -5,6 +5,16 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 require("dotenv").config();
+const router = express.Router();
+
+console.log("MONGO_URI:", process.env.MONGO_URI); // Add this line to log the MONGO_URI
+
+ // Define your routes here
+ router.get('/test', (req, res) => {
+	res.send('Test route');
+});
+
+module.exports = router;
 
 // app
 const app = express();
@@ -20,13 +30,7 @@ mongoose
 
 // middleware
 app.use(morgan("dev"));
-app.use(json());
-app.use(urlencoded({ extended: false }));
 app.use(cors({ origin: true, credentials: true }));
-
-// routes
-const testRoutes = require("./routes/test");
-app.use("/", testRoutes);
 
 // port
 const port = process.env.PORT || 8080;
